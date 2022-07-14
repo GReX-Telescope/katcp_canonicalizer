@@ -58,14 +58,3 @@ jobs:
         with:
           command: nextest
           args: run --all-features
-      - name: Install cargo-llvm-cov
-        uses: taiki-e/install-action@cargo-llvm-cov
-      - name: Generate code coverage
-        if: startsWith(matrix.rust-version, 'stable')
-        run: cargo llvm-cov nextest --all-features --workspace --lcov --output-path lcov.info
-      - name: Upload coverage to Codecov
-        if: startsWith(matrix.rust-version, 'stable')
-        uses: codecov/codecov-action@v3
-        with:
-          files: lcov.info
-          fail_ci_if_error: true
